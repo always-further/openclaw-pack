@@ -12,12 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - name: Extract version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#openclaw-v}" >> $GITHUB_OUTPUT
       - uses: always-further/agent-sign@c9426f1a00f823dd53e7b9068d910a68b43e49e9 # v0.0.11
         with:
           publish: "true"
           package-name: openclaw
           package-namespace: always-further
-          package-version: ${{ replace(github.ref_name, 'openclaw-v', '') }}
+          package-version: ${{ steps.version.outputs.version }}
           package-path: openclaw
           registry-url: https://packs.nono.sh/api/v1
           files: |
