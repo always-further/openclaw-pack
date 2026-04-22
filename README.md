@@ -11,7 +11,7 @@ nono packs for [OpenClaw](https://openclaw.ai) AI agents.
 ## Installation
 
 ```bash
-nono pull openclaw
+nono pull always-further/openclaw
 ```
 
 ## Usage

@@ -8,21 +8,24 @@
   "min_nono_version": "0.29.0",
   "artifacts": [
     {
-      "type": "policy",
+      "type": "profile",
       "path": "policy.json",
       "install_as": "openclaw"
     },
     {
       "type": "plugin",
-      "path": "skills/openclaw-sandbox/SKILL.md"
+      "path": "skills/openclaw-sandbox/SKILL.md",
+      "install_dir": "~/.claude/skills/openclaw-sandbox"
+    },
+    {
+      "type": "hook",
+      "path": "bin/nono-hook.sh",
+      "install_dir": "~/.claude/hooks",
+      "target": "claude-code"
     },
     {
       "type": "plugin",
       "path": "hooks/hooks.json"
-    },
-    {
-      "type": "plugin",
-      "path": "bin/nono-hook.sh"
     }
   ]
 }
