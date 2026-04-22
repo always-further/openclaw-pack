@@ -30,7 +30,7 @@ Agents can use this to avoid duplicating work, signal task ownership, or broadca
 ## Installation
 
 ```bash
-nono pull always-further/openclaw
+nono pull always-further/openclaw --registry https://packs.nono.sh
 ```
 
 ## Usage
