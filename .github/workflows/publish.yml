@@ -26,7 +26,6 @@ jobs:
           files: |
             policy.json
             skills/openclaw-sandbox/SKILL.md
-            hooks/hooks.json
             bin/nono-hook.sh
             package.json
             README.md

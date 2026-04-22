@@ -20,12 +20,7 @@
     {
       "type": "hook",
       "path": "bin/nono-hook.sh",
-      "install_dir": "~/.claude/hooks",
       "target": "claude-code"
-    },
-    {
-      "type": "plugin",
-      "path": "hooks/hooks.json"
     }
   ]
 }

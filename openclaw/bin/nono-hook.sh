@@ -15,6 +15,18 @@ if ! command -v jq &> /dev/null; then
     exit 0
 fi
 
+# Read stdin and check if this is actually a permission error
+INPUT=$(cat)
+ERROR=$(echo "$INPUT" | jq -r '.error // ""' 2>/dev/null)
+
+case "$ERROR" in
+    *"Permission denied"*|*"Operation not permitted"*|*"EPERM"*|*"EACCES"*)
+        ;;  # genuine permission denial — continue
+    *)
+        exit 0  # not a permission error — exit silently
+        ;;
+esac
+
 # Read current capabilities
 CAPS=$(jq -r '.fs[] | "  " + (.resolved // .path) + " (" + .access + ")"' "$NONO_CAP_FILE" 2>/dev/null)
 NET=$(jq -r 'if .net_blocked then "blocked" else "allowed" end' "$NONO_CAP_FILE" 2>/dev/null)

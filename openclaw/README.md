@@ -49,10 +49,9 @@ nono run --profile openclaw --home ~/.openclaw-agent1 -- openclaw
 
 | Artifact | Type | Purpose |
 |---|---|---|
-| `policy.json` | policy | nono sandbox profile for all openclaw instances |
+| `policy.json` | profile | nono sandbox profile; declares the PostToolUseFailure hook for auto-registration |
 | `skills/openclaw-sandbox/SKILL.md` | instruction | Teaches the agent its sandbox constraints and coordination bus usage |
-| `hooks/hooks.json` | plugin | Registers PostToolUseFailure hook |
-| `bin/nono-hook.sh` | hook | Hook script: injects capability context on permission denial |
+| `bin/nono-hook.sh` | hook | Hook script: injects capability context on permission denial (permission errors only) |
 
 ## Policy Details
 
@@ -80,8 +79,6 @@ The profile:
 openclaw/
 ├── bin/
 │   └── nono-hook.sh
-├── hooks/
-│   └── hooks.json
 ├── package.json
 ├── policy.json
 ├── README.md
