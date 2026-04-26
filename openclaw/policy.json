@@ -4,7 +4,7 @@
     "name": "openclaw",
     "version": "1.0.0",
     "description": "OpenClaw AI agent — supports main and multi-agent instances with shared coordination bus",
-    "author": "nono-project"
+    "author": "always-further"
   },
   "security": {
     "groups": [
