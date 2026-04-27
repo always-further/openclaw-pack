@@ -1,6 +1,7 @@
 # openclaw-pack
 
-![nono packs for [OpenClaw](https://openclaw.ai) AI agents.](nono-openclaw.png)
+nono packs for [OpenClaw](https://openclaw.ai) AI agents.
+![](nono-openclaw.png)
 
 ## Packs
 
