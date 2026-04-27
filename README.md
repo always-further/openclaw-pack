@@ -1,30 +1,38 @@
-# openclaw-pack
+<p align="center">
+  <img src="./nono-openclaw.png" alt="nono + OpenClaw" width="320" />
+</p>
 
-![](nono-openclaw.png)
+<h1 align="center">openclaw-pack</h1>
 
-nono pack for [OpenClaw](https://openclaw.ai) AI agents!
+<p align="center">
+  nono packs for <a href="https://openclaw.ai">OpenClaw</a> AI agents — sandboxing, multi-agent coordination, and capability-aware diagnostics.
+</p>
+
+---
 
 ## Packs
 
 | Pack | Description |
 |---|---|
-| [`openclaw`](./openclaw/) | Sandbox policy and multi-agent coordination for OpenClaw |
+| [`openclaw`](./openclaw/) | Sandbox profile, multi-agent coordination bus, and skill for all standard OpenClaw instance directories |
 
-## Installation
+## Install
 
 ```bash
 nono pull always-further/openclaw
 ```
 
+Requires nono ≥ 0.42.0.
+
 ## Usage
 
-Run a sandboxed OpenClaw session:
+**Single agent**
 
 ```bash
 nono run --profile openclaw -- openclaw
 ```
 
-Run multiple sandboxed instances in parallel:
+**Multi-agent (parallel instances)**
 
 ```bash
 nono run --profile openclaw -- openclaw
@@ -32,20 +40,32 @@ nono run --profile openclaw --home ~/.openclaw-agent1 -- openclaw
 nono run --profile openclaw --home ~/.openclaw-agent2 -- openclaw
 ```
 
-## What's in a pack
+Each instance runs in its own isolated sandbox. Agents coordinate via a shared bus at `$TMPDIR/openclaw-$UID/` — readable and writable by all sandboxed instances on the same machine without breaking isolation.
 
-Each pack is a directory containing:
+## What this pack includes
 
-- `package.json` — pack metadata (name, version requirements, artifacts)
-- `policy.json` — nono sandbox profile (filesystem, network, IPC capabilities)
-- `skills/` — instruction files that teach the agent its constraints
-- `bin/` — hook scripts that fire on sandbox events
+| Artifact | Type | What it does |
+|---|---|---|
+| `policy.json` | profile | Sandbox policy covering all standard OpenClaw directories + coordination bus |
+| `skills/openclaw-sandbox/SKILL.md` | instruction | Teaches the agent its sandbox constraints and how to diagnose permission failures |
+| `bin/nono-hook.sh` | hook | Injects capability context into the agent when a sandbox denial occurs |
 
-See the [nono registry](https://registry.nono.sh) to browse and pull packs.
+## Multi-agent coordination
+
+When running multiple OpenClaw instances simultaneously, all agents share:
+
+```
+$TMPDIR/openclaw-$UID/
+├── tasks/    ← shared task queue
+├── locks/    ← file-based ownership (claim with noclobber)
+└── state/    ← ephemeral per-agent status
+```
+
+Agents use this to avoid duplicate work, signal task ownership, and broadcast lightweight state — no network calls or shared database required.
 
 ## Publishing
 
-Packs are published to the nono registry via GitHub Actions on tag push. To release a new version:
+Packs are published to the nono registry via GitHub Actions on tag push:
 
 ```bash
 git tag openclaw-v0.2.0
@@ -53,3 +73,9 @@ git push origin openclaw-v0.2.0
 ```
 
 The workflow at `.github/workflows/publish.yml` handles signing and publishing automatically.
+
+---
+
+<p align="center">
+  Browse more packs at <a href="https://registry.nono.sh">registry.nono.sh</a>
+</p>
